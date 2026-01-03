@@ -1,40 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/utils/dialog_box.dart';
-import 'package:todo_app/utils/list_view_container.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todo_app/hive/todo_box.dart';
+import '../widgets/dialog_box.dart';
+import '../widgets/list_view_container.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<String> todoList = ["Hello"];
-
-  @override
   Widget build(BuildContext context) {
+    final box = todoBox;
+
     return Scaffold(
       backgroundColor: Colors.blue.shade100,
-      body: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 10, vertical: 20),
-        child: ListViewContainer(todoList: todoList),
+
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.blue,
+        toolbarHeight: 72,
+        title: const Text("Greetings, User!"),
       ),
-      appBar: AppBar(title: Text("Home")),
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, Box<String> box, _) {
+            final todoList = box.values
+                .toList()
+                .reversed
+                .toList(); // latest first
+            return ListViewContainer(todoList: todoList);
+          },
+        ),
+      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final newTask = await showDialog<String>(
             context: context,
-            builder: (context) => DialogBox(),
+            builder: (context) => const DialogBox(),
           );
 
           if (newTask != null && newTask.isNotEmpty) {
-            setState(() {
-              todoList.insert(0, newTask);
-            });
+            box.add(newTask); // Hive persists automatically
           }
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
