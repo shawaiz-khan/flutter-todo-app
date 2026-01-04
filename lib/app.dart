@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
 
       // Routes
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.authGate,
       routes: AppRoutes.routes,
     );
   }
