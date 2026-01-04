@@ -11,23 +11,22 @@ class MyApp extends StatelessWidget {
 
       // Color Themes
       theme: ThemeData(
-        primaryColor: Colors.blue,
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.transparent,
           elevation: 0,
-          toolbarHeight: 60,
-          centerTitle: true,
+          toolbarHeight: 80,
+          // centerTitle: true,
           titleTextStyle: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 25,
-            fontWeight: FontWeight.bold,
+            // fontWeight: FontWeight.bold,
           ),
         ),
       ),
 
       // Routes
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.login,
       routes: AppRoutes.routes,
     );
   }

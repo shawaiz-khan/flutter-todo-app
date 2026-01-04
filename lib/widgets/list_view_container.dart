@@ -8,33 +8,61 @@ class ListViewContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: todoList.length,
       itemBuilder: (context, index) {
         final item = todoList[index];
 
-        return Dismissible(
-          key: Key(item + index.toString()), // ensure unique key
-          direction: DismissDirection.endToStart,
-          background: Container(
-            color: Colors.red,
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            margin: const EdgeInsets.all(10),
-            child: const Icon(Icons.delete, color: Colors.white),
-          ),
-          onDismissed: (direction) {
-            todoBox.deleteAt(
-              todoList.length - 1 - index,
-            ); // because we reversed the list
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: Dismissible(
+            key: ValueKey('$item-$index'),
+            direction: DismissDirection.endToStart,
 
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('$item removed')));
-          },
-          child: Card(
-            margin: const EdgeInsets.all(10),
-            child: ListTile(
-              title: Text(item, style: const TextStyle(fontSize: 20)),
+            background: Container(
+              decoration: BoxDecoration(
+                color: Colors.red.shade600,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(right: 20),
+              child: const Icon(
+                Icons.delete_outline,
+                color: Colors.white,
+                size: 26,
+              ),
+            ),
+
+            onDismissed: (_) {
+              todoBox.deleteAt(todoList.length - 1 - index);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    '${item.length > 50 ? "${item.substring(0, 50)} + ..." : item} removed',
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
+
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.lightBlue.shade100,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                title: Text(
+                  item,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ),
           ),
         );

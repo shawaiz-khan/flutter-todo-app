@@ -9,30 +9,26 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String user = "Shawaiz";
     final box = todoBox;
 
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Colors.white,
 
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.blue,
-        toolbarHeight: 72,
-        title: const Text("Greetings, User!"),
+        title: const Text("Greetings, $user!"),
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (context, Box<String> box, _) {
-            final todoList = box.values
-                .toList()
-                .reversed
-                .toList(); // latest first
-            return ListViewContainer(todoList: todoList);
-          },
-        ),
+      body: ValueListenableBuilder(
+        valueListenable: box.listenable(),
+        builder: (context, Box<String> box, _) {
+          final todoList = box.values
+              .toList()
+              .reversed
+              .toList(); // latest first
+          return ListViewContainer(todoList: todoList);
+        },
       ),
 
       floatingActionButton: FloatingActionButton(
