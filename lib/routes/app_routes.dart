@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/home_screen.dart';
-import 'package:todo_app/screens/login_screen.dart';
+import 'package:todo_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:todo_app/features/home/presentation/screens/home_screen.dart';
 
 class AppRoutes {
   static const String home = '/';
