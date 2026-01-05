@@ -10,7 +10,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _registerFormKey = GlobalKey<FormState>();
   final AuthFormData form = AuthFormData();
 
   @override
@@ -52,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ],
                             ),
                             Form(
-                              key: _formKey,
+                              key: _registerFormKey,
                               child: Column(
                                 spacing: 10,
                                 children: [
