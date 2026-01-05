@@ -14,12 +14,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.blueAccent.shade200,
+          iconTheme: IconThemeData(color: Colors.white),
           elevation: 0,
           toolbarHeight: 80,
           // centerTitle: true,
           titleTextStyle: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 25,
             // fontWeight: FontWeight.bold,
           ),
