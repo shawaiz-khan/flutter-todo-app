@@ -1,4 +1,4 @@
-import 'package:todo_app/hive/todo_box.dart';
+import 'package:todo_app/core/services/db/hive/todo_box.dart';
 
 class TodoRepository {
   List<String> getTodos() => todoBox.values.toList();

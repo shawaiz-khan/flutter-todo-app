@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:todo_app/hive/todo_box.dart';
+import 'package:todo_app/core/services/db/hive/todo_box.dart';
+import 'package:todo_app/features/home/presentation/widgets/home_drawer.dart';
 import '../widgets/dialog_box.dart';
 import '../widgets/list_view_container.dart';
 
@@ -15,10 +16,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      appBar: AppBar(
-        title: const Text("Greetings, $user!"),
-        leading: IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-      ),
+      appBar: AppBar(title: const Text("Greetings, $user!")),
+
+      drawer: HomeDrawer(),
 
       body: ValueListenableBuilder(
         valueListenable: box.listenable(),

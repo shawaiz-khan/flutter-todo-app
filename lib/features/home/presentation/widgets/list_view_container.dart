@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/hive/todo_box.dart';
+import 'package:todo_app/core/services/db/hive/todo_box.dart';
 
 class ListViewContainer extends StatelessWidget {
   final List<String> todoList;
@@ -48,7 +48,7 @@ class ListViewContainer extends StatelessWidget {
 
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue.shade100,
+                color: Colors.lightBlueAccent.shade100,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: ListTile(
