@@ -18,6 +18,12 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     final user = UserModel(username: username, password: password);
+
+    if (username == "" || password == "") {
+      notifyListeners();
+      throw ErrorDescription("Fill all the required fields");
+    }
+
     await _userRepository.addUser(user);
 
     _currentUser = user;
@@ -32,7 +38,7 @@ class AuthProvider extends ChangeNotifier {
 
     if (user == null || user.password != password) {
       notifyListeners();
-      throw Exception("Invalid username or password");
+      throw ErrorDescription("Invalid username or password");
     }
 
     _currentUser = user;

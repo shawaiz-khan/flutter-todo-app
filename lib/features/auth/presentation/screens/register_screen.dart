@@ -17,7 +17,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> handleRegister() async {
     final auth = context.read<AuthProvider>();
-    await auth.register(form.username, form.password);
+
+    try {
+      if (form.password != form.confirmPassword) {
+        throw ErrorDescription("Passwords do not match");
+      }
+
+      await auth.register(form.username, form.password);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Registration Successfull"),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (err) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(err.toString()),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   @override

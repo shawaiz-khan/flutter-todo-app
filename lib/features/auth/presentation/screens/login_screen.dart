@@ -17,8 +17,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> handleLogin() async {
     final auth = context.read<AuthProvider>();
-    await auth.login(form.username, form.password);
-    print("Login successfull ${form.username}");
+
+    try {
+      await auth.login(form.username, form.password);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Login Successfull"),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Navigator.pushReplacementNamed(context, '/home');
+    } catch (err) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(err.toString()),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   @override
