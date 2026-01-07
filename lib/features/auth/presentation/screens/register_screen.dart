@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/models/auth_form_data.dart';
-import 'package:todo_app/data/models/validators.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/core/utils/validators.dart';
+import 'package:todo_app/data/models/auth_handler_model.dart';
+import 'package:todo_app/features/auth/domain/auth_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,12 +13,16 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _registerFormKey = GlobalKey<FormState>();
-  final AuthFormData form = AuthFormData();
+  final AuthHandlerModel form = AuthHandlerModel();
+
+  Future<void> handleRegister() async {
+    final auth = context.read<AuthProvider>();
+    await auth.register(form.username, form.password);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text("Register")),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: LayoutBuilder(
@@ -101,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       SizedBox(
                                         width: double.infinity,
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () => handleRegister(),
                                           style: ButtonStyle(
                                             shape: WidgetStateProperty.all(
                                               RoundedRectangleBorder(
@@ -111,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             backgroundColor:
                                                 WidgetStateProperty.all(
-                                                  Colors.blue,
+                                                  Colors.blueAccent.shade200,
                                                 ),
                                           ),
                                           child: const Text(
@@ -150,6 +156,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                           tapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
+                                          textStyle: WidgetStateProperty.all(
+                                            TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
                                         ),
                                         child: const Text(
                                           "Login",

@@ -2,5 +2,5 @@ class TodoModel {
   final String title;
   final bool isDone;
 
-  TodoModel(this.title, this.isDone);
+  TodoModel({required this.title, required this.isDone});
 }
